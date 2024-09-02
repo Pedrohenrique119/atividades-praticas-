@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades Técnicas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+    <script>
+        // 1. Cálculo da Variável SOMA
+        function calcularSoma() {
+            let indice = 13;
+            let soma = 0;
+            let k = 0;
+
+            while (k < indice) {
+                k = k + 1;
+                soma = soma + k;
+            }
+
+            document.getElementById('resultadoSoma').innerText = "SOMA: " + soma;
+        }
+
+        // 2. Verificação de Número na Sequência de Fibonacci
+        function verificarFibonacci() {
+            let numero = parseInt(document.getElementById('numero').value);
+            let a = 0, b = 1, fib = a + b;
+
+            while (fib < numero) {
+                a = b;
+                b = fib;
+                fib = a + b;
+            }
+
+            let resultado = fib === numero ? "pertence" : "não pertence";
+            document.getElementById('resultadoFibonacci').innerText = numero + " " + resultado + " à sequência de Fibonacci.";
+        }
+
+        // 3. Faturamento Diário de uma Distribuidora
+        function calcularFaturamento() {
+            let dados = [1000, 1200, 1300, 900, 0, 0, 1000, 1400, 800, 0, 1300, 1000, 1100, 0, 900];
+            let faturamentoFiltrado = dados.filter(dia => dia > 0);
+
+            let menorFaturamento = Math.min(...faturamentoFiltrado);
+            let maiorFaturamento = Math.max(...faturamentoFiltrado);
+            let mediaMensal = faturamentoFiltrado.reduce((a, b) => a + b, 0) / faturamentoFiltrado.length;
+
+            let diasAcimaMedia = faturamentoFiltrado.filter(dia => dia > mediaMensal).length;
+
+            document.getElementById('resultadoFaturamento').innerHTML = `
+                Menor faturamento: R$${menorFaturamento}<br>
+                Maior faturamento: R$${maiorFaturamento}<br>
+                Dias com faturamento acima da média: ${diasAcimaMedia}
+            `;
+        }
+
+        // 4. Percentual de Faturamento por Estado
+        function calcularPercentual() {
+            let faturamentoEstados = {
+                "SP": 67836.43,
+                "RJ": 36678.66,
+                "MG": 29229.88,
+                "ES": 27165.48,
+                "Outros": 19849.53
+            };
+
+            let totalMensal = Object.values(faturamentoEstados).reduce((a, b) => a + b, 0);
+
+            let percentualEstados = {};
+            for (let estado in faturamentoEstados) {
+                percentualEstados[estado] = (faturamentoEstados[estado] / totalMensal * 100).toFixed(2);
+            }
+
+            let resultado = Object.entries(percentualEstados)
+                .map(([estado, percentual]) => `${estado}: ${percentual}%`)
+                .join('<br>');
+
+            document.getElementById('resultadoPercentual').innerHTML = resultado;
+        }
+
+        // 5. Inversão de String
+        function inverterString() {
+            let str = document.getElementById('string').value;
+            let invertida = '';
+
+            for (let i = str.length - 1; i >= 0; i--) {
+                invertida += str[i];
+            }
+
+            document.getElementById('resultadoInversao').innerText = "String invertida: " + invertida;
+        }
+    </script>
+</head>
+<body onload="calcularSoma(); calcularFaturamento(); calcularPercentual();">
+    <div class="container">
+        <h1>Atividades Técnicas</h1>
+
+        <section>
+            <h2>1. Cálculo da Variável SOMA</h2>
+            <p id="resultadoSoma"></p>
+        </section>
+
+        <section>
+            <h2>2. Verificação de Número na Sequência de Fibonacci</h2>
+            <input type="number" id="numero" placeholder="Informe um número">
+            <button onclick="verificarFibonacci()">Verificar</button>
+            <p id="resultadoFibonacci"></p>
+        </section>
+
+        <section>
+            <h2>3. Faturamento Diário de uma Distribuidora</h2>
+            <p id="resultadoFaturamento"></p>
+        </section>
+
+        <section>
+            <h2>4. Percentual de Faturamento por Estado</h2>
+            <p id="resultadoPercentual"></p>
+        </section>
+
+        <section>
+            <h2>5. Inversão de String</h2>
+            <input type="text" id="string" placeholder="Informe uma string">
+            <button onclick="inverterString()">Inverter</button>
+            <p id="resultadoInversao"></p>
+        </section>
+    </div>
+</body>
+</html>
